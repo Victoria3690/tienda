@@ -1,0 +1,1181 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>PIXYES</title>
+  <link rel="stylesheet" href="estilos.css">
+</head>
+
+<body>
+  
+<div id="boton-carrito-flotante" onclick="toggleCarrito()">
+
+    <span class="icono-carrito">🛒</span>
+
+    <span id="contador-carrito">0</span>
+
+</div>
+
+    <div id="boton-favoritos" onclick="toggleFavoritos()">
+      
+    <span class="icono-flotante">❤️</span>
+
+    <span id="contador-favoritos">0</span>
+</div>
+
+<div id="boton-cuenta" onclick="mostrarCuenta()">
+    👤
+    <span>Mi cuenta</span>
+</div>
+
+<div id="carrito-modal" class="carrito-oculto">
+  <div class="carrito-contenido">
+    <span class="cerrar" onclick="toggleCarrito()">&times;</span>
+    <h2>Tu Carrito ✨</h2>
+    <div id="items-carrito">
+      </div>
+    <div class="total-carrito">
+      <strong>Total: $<span id="precio-total">0</span></strong>
+    </div>
+    <button class="btn-pagar" onclick="finalizarCompra()">Finalizar Compra</button>
+  </div>
+</div>
+
+<div class="glitter"></div>
+
+<header>
+  <h1>PIXYES</h1>
+  <p class="descripcion">✨ Pixie Lirae Fael ✨</p>
+  <p class="subdescripcion">Belleza encantada en cada detalle</p>
+
+  <div class="buscador">
+    <span>🔍</span>
+    <input
+      type="text"
+      id="buscador"
+      placeholder="Buscar maquillaje..."
+      onkeyup="buscarProducto(event)">
+  </div>
+</header>
+
+
+<section id="resultadosBusqueda" class="productos">
+  
+  <h2>Resultados de búsqueda</h2>
+
+<div class="lista-productos" id="listaResultados"></div>
+
+<div id="paginacion" class="paginacion"></div>
+
+</section>
+  
+
+  <section id="seccion-favoritos" class="productos" style="display:none;">
+
+    <p class="volver" onclick="volverInicio()">← Volver</p>
+
+    <h2 class="titulo-favoritos">❤️ Mis Favoritos</h2>
+
+    <div id="lista-favoritos" class="lista-productos">
+
+    </div>
+
+</section>
+
+<section id="seccion-cuenta" class="productos">
+
+    <p class="volver" onclick="volverInicio()">
+        ← Volver
+    </p>
+
+    <h2 class="titulo-favoritos">
+        👤 Mi cuenta
+    </h2>
+
+    <div class="cuenta-contenedor">
+
+        <h3>Iniciar sesión</h3>
+
+        <input
+            type="email"
+            id="login-correo"
+            placeholder="Correo electrónico"
+        >
+
+        <input
+            type="password"
+            id="login-password"
+            placeholder="Contraseña"
+        >
+
+        <button onclick="iniciarSesion()">
+            Iniciar sesión
+        </button>
+
+        <p>
+            ¿No tienes una cuenta?
+        </p>
+
+        <button onclick="mostrarRegistro()">
+            Crear cuenta
+        </button>
+
+    </div>
+
+</section>
+
+<section id="seccion-registro" class="productos">
+
+    <p class="volver" onclick="mostrarCuenta()">
+        ← Volver
+    </p>
+
+    <h2 class="titulo-favoritos">
+        ✨ Crear cuenta
+    </h2>
+
+    <div class="cuenta-contenedor">
+
+        <input
+            type="text"
+            id="registro-nombre"
+            placeholder="Tu nombre"
+        >
+
+        <input
+            type="email"
+            id="registro-correo"
+            placeholder="Correo electrónico"
+        >
+
+        <input
+            type="password"
+            id="registro-password"
+            placeholder="Contraseña"
+        >
+
+        <button onclick="registrarUsuario()">
+            Crear mi cuenta
+        </button>
+
+    </div>
+
+</section>
+<div id="perfil-usuario" style="display:none;">
+
+    <h3>💗 Bienvenida a PIXYES</h3>
+
+    <p id="nombre-usuario"></p>
+    <p id="correo-usuario"></p>
+
+    <div class="opciones-cuenta">
+
+        <button onclick="toggleFavoritos()">
+            ❤️ Mis favoritos
+        </button>
+
+        <button onclick="mostrarCompras()">
+            🛍️ Mis compras
+        </button>
+
+        <button onclick="mostrarCupones()">
+            🎟️ Mis cupones
+        </button>
+
+        <button onclick="cerrarSesion()">
+            🚪 Cerrar sesión
+        </button>
+
+    </div>
+
+</div>
+
+  
+    <!-- BOTONES PRINCIPALES -->
+
+  <section class="categorias"> 
+    <button onclick="mostrar('maquillaje')">💄 Maquillaje</button> 
+    <button onclick="mostrar('cuidado')">🧴 Cuidado de la piel</button> 
+    <button onclick="mostrar('accesorios')">🎀 Accesorios</button> 
+
+   
+
+  </section> 
+  
+    <!-- MAQUILLAJE -->
+  <section id="maquillaje" class="productos">
+    <h2>💄 Maquillaje</h2>
+    <div class="subcategorias"> 
+      <button onclick="mostrar('labios')">Labios</button> 
+      <button onclick="mostrar('cejas')">Cejas</button> 
+      <button onclick="mostrar('ojos')">Ojos</button> 
+      <button onclick="mostrar('rostro')">Rostro</button> 
+    </div>
+  </section> 
+  
+    <!-- LABIOS -->
+  <section id="labios" class="productos">
+    <p class="volver" onclick="mostrar('maquillaje')">← Volver</p>
+    <h3>💋 Labios</h3>
+
+    <div class="sub-subcategorias"> 
+      <button onclick="mostrar('hidratantes')">Balsamos hidratantes & Gloss</button>
+      <button onclick="mostrar('tintas')">Tintas & Lápices labial</button> 
+      <button onclick="mostrar('mates')">Labiales Mates y brillo labial</button> 
+    </div>
+  </section>
+
+    <!-- hidratantes -->
+
+  <section id="hidratantes" class="productos">
+
+    <p class="volver" onclick="mostrar('labios')">← Volver</p>
+    <h4>Hidratantes & Gloss</h4> 
+
+      <!-- lista-productos -->
+    <div class="lista-productos"> 
+
+       <!-- producto 1 -->
+      <div class="producto">
+         <img
+        src="img/corazon-normal.png"
+        class="corazon-favorito"
+        data-estado-favorito="false">
+        
+      <img src="img/aceite-labiale.jpg"
+       data-hover="img/aceite-labiale-hover.jpg"
+       alt="Aceites labiales"
+        onclick="verProducto(
+        'img/aceite-labiale.jpg',
+        'Juego de 4 aceites labiales', 
+        'Hidratantes, antisecado e incoloros. Incluye honey peach, strawberry, grape y cherry.', 
+        38000
+      )">
+      
+          <h3 onclick="verProducto(
+          'img/aceite-labiale.jpg',
+          'Juego de 4 aceites labiales en rolon,honey peach,straw berry,grape,cherry',
+          'Hidratantes,antisecado y incoloros',
+          38000
+      )">
+          Juego de 4 aceites labiales en rolon, honey peach, strawberry, grape, cherry
+    </h3>
+
+    <p>Hidratantes, antisecado y incoloros</p>
+    <p class="precio">$38.000</p>
+      
+        <div class="colores"> 
+          <span style="background-color:#ffb6c1;"></span> 
+          <span style="background-color:#f06292;"></span> 
+          <span style="background-color:#80219c;"></span> 
+          <span style="background-color:#92163f;"></span> 
+        </div> 
+        <button class="btn-carrito"
+        onclick="agregaralcarrito(
+              'Juego de 4 aceites labiales',
+              38000
+            )">
+            Agregar al carrito
+            </button>
+      </div> 
+  
+          
+      <!-- producto 2 -->
+      <div class="producto">
+         
+        <img
+        src="img/corazon-normal.png"
+        class="corazon-favorito"
+        data-estado-favorito="false">
+       
+     
+       <img src="img/tocobo.jpg"
+       data-hover="img/tocobo-hover.jpg"
+       alt="tocobo aceite"
+        onclick="verProducto( 
+        'img/tocobo.jpg', 
+        'TOCOBO - Aceite Labial', 
+        'El complejo de aceite de esencia brillante (que consiste en extractos de fruta de cereza silvestre, arándano y zafiro) .', 
+        52000 
+        )">
+         
+        <h3 onclick="verProducto( 
+          'img/tocobo.jpg',
+          'TOCOBO - Aceite Labial', 
+          'El complejo de aceite de esencia brillante (que consiste en extractos de fruta de cereza silvestre, arándano y zafiro) .', 
+          52000 
+        )">
+        complejo de aceite de esencia brillante (que consiste en extractos de fruta de cereza silvestre, arándano y zafiro) 
+      </h3>
+      <p>Hidratantes, antisecado y incoloros</p>
+      <p class="precio">$52.000</p>
+        
+      <div class="colores"> 
+        <span style="background-color:#b42d77;"></span> 
+        <span style="background-color:#3a171d;"></span> 
+        <span style="background-color:#af5e27;"></span> 
+        <span style="background-color:#92163f;"></span> 
+        <span style="background-color:#680414;"></span> 
+        <span style="background-color:#6e0740;"></span> 
+      </div> 
+            <button class="btn-carrito"
+            onclick="agregaralcarrito(
+              'TOCOBO - Aceite Labial',
+              52000 
+              )"> 
+               Agregar al carrito
+               </button>
+      </div> 
+      
+      <!-- producto 3 -->
+      <div class="producto">
+        <img
+        src="img/corazon-normal.png"
+        class="corazon-favorito"
+        data-estado-favorito="false">
+
+
+      <img src="img/balsamo.jpg"
+      data-hover="img/balsamo-hover.jpg"
+      alt="Aceites labiales"
+        onclick="verProducto( 
+          'img/balsamo.jpg', 
+          'Bálsamo labial hidratante', 
+          'Gel de gelatina flor de jazmín, coco, uva, manzana, crema hidratante fresca afrutada.', 
+          12000 
+          )">
+         
+        <h3 onclick="verProducto( 
+           'img/balsamo.jpg',
+           'Bálsamo labial hidratante',
+           'Gel de gelatinaflor de jazmín, coco, uva, manzana, crema hidratante fresca afrutada.',
+           12000 
+          )">
+       Gel de gelatina
+      </h3>
+       <p>Hidratantes, antisecado y incoloros</p>
+        <p class="precio">$12.000</p>
+
+        <div class="colores"> 
+        <span style="background-color:#ffb6c1;"></span> 
+        <span style="background-color:#f06292;"></span> 
+        <span style="background-color:#1e62af;"></span> 
+        <span style="background-color:#92163f;"></span>
+        </div> 
+              <button class="btn-carrito"
+              onclick="agregaralcarrito(
+                'Bálsamo labial hidratante',
+                12000 
+                  )">
+              Agregar al carrito
+            </button>
+      </div>
+    </div>
+  </section>
+  
+
+  <section id="tintas" class="productos">
+    <p class="volver" onclick="mostrar('labios')">← Volver</p>
+    <h4>Tintas & Lápices</h4> 
+    
+      <!-- lista-productos -->
+    <div class="lista-productos"> 
+        
+      <!-- producto 1 -->
+
+      <div class="producto">
+         <img
+        src="img/corazon-normal.png"
+        class="corazon-favorito"
+        data-estado-favorito="false">
+
+      <img src="img/cute-cat.jpg"
+       data-hover="img/cute-cat-hover.jpg" 
+        alt="Juego de tintas de labios"
+        onclick="verProducto( 
+        'img/cute-cat.jpg', 
+        'Cute cat fun-JuegoAltamente pigmentantes', 
+        'brillantes y hidratantes.', 
+        40000 
+      )">
+         
+        <h3 onclick="verProducto(
+        'img/cute-cat.jpg', 
+        'Cute cat fun-JuegoAltamente pigmentantes', 
+        'brillantes y hidratantes.', 
+        40000 
+      )">
+        Altamente pigmentantes, brillantes y hidratantes
+      </h3>
+
+        <p>Altamente pigmentantes, brillantes y hidratantes</p>
+        <p class="precio">$40.000</p>
+       
+        <div class="colores"> 
+          <span style="background-color:#b42d77;"></span> 
+          <span style="background-color:#f06292;"></span> 
+          <span style="background-color:#af5e27;"></span> 
+          <span style="background-color:#92163f;"></span> 
+          <span style="background-color:#680414;"></span> 
+          <span style="background-color:#6e0740;"></span> 
+        </div> 
+            <button class="btn-carrito"
+           onclick="agregaralcarrito(
+                'Cute cat fun DAIAMPU altamente pigmentantes',
+                40000 
+                  )">
+              Agregar al carrito
+            </button>
+      </div> 
+
+      <!-- producto 2 -->
+
+      <div class="producto">
+         <img
+        src="img/corazon-normal.png"
+        class="corazon-favorito"
+        data-estado-favorito="false">
+
+      <img src="img/lapiz-labios.jpg"
+      data-hover="img/lapiz-labios-hover.jpg"
+      alt="Lápiz delineador de labios"
+        onclick="verProducto( 
+        'img/lapiz-labios.jpg', 
+        'Lápiz delineador de labios', 
+        'lápiz labial resistente al agua duradero.', 
+        20000 
+        )">
+         
+        <h3 onclick="verProducto(
+          'img/lapiz-labios.jpg', 
+        'Lápiz delineador de labios', 
+        'lápiz labial resistente al agua duradero.', 
+        20000 
+        )">
+          Lápiz delineador de labios de terciopelo mate
+        </h3>
+
+        <p>lápiz labial resistente al agua duradero</p>
+        <p class="precio">$20.000</p>
+        
+        <div class="colores"> 
+        <span style="background-color:#974984;"></span> 
+        <span style="background-color:#ad4668;"></span> 
+        <span style="background-color:#853851;"></span> 
+        </div> 
+            
+        <button class="btn-carrito"
+        onclick="agregaralcarrito(
+                'Lápiz delineador de labios',
+                20000 
+                  )">
+              Agregar al carrito
+            </button>
+      </div>
+</div>
+  </section>
+  
+  <section id="mates" class="productos">
+    <p class="volver" onclick="mostrar('labios')">← Volver</p>
+    <h4>Labiales Mates</h4> 
+    
+    <!-- lista-productos -->
+    
+    <div class="lista-productos"> 
+      
+      <!-- producto 1 -->
+      
+      <div class="producto">
+         <img
+        src="img/corazon-normal.png"
+        class="corazon-favorito"
+        data-estado-favorito="false">
+
+      <img src="img/mate.jpg"
+       data-hover="img/mate-hover.jpg"
+       alt="Labial aterciopelado"
+        onclick="verProducto( 
+        'img/mate.jpg', 
+        'FLORTTE lápiz labial mate', 
+        'Crema de labios de terciopelo líquido mate de larga duración.', 
+        38000 
+        )">
+         
+        <h3 onclick="verProducto(
+          'img/mate.jpg', 
+        'FLORTTE lápiz labial mate', 
+        'Crema de labios de terciopelo líquido mate de larga duración.', 
+        38000 
+        )">
+          FLORTTE lápiz labial mate
+        </h3>
+        <p>Crema de labios de terciopelo líquido mate de larga duración</p>
+        <p class="precio">$38.000</p>
+        
+        <div class="colores"> 
+          <span style="background-color:#b61b1b;"></span> 
+          <span style="background-color:#6d1616;"></span> 
+          <span style="background-color:#d62c2c;"></span>
+          <span style="background-color:#721c51;"></span> 
+        </div> 
+            <button class="btn-carrito"
+             onclick="agregaralcarrito(
+                'FLORTTE lápiz labial mate',
+                38000
+                  )">
+              Agregar al carrito
+            </button>
+      </div>
+    </div>
+
+  </section> 
+  
+  <!-- Cejas -->
+  <section id="cejas" class="productos">
+    <p class="volver" onclick="mostrar('maquillaje')">← Volver</p>
+    <h3>🖊️ Cejas</h3>
+    
+    <div class="sub-subcategorias"> 
+      <button onclick="mostrar('lapicesCejas')">Lápices</button> 
+      <button onclick="mostrar('gelCejas')">Gel</button> </div>
+  
+    </section>
+ 
+    <section id="lapicesCejas" class="productos">
+    <p class="volver" onclick="mostrar('cejas')">← Volver</p>
+    <h4>Lápices de Cejas</h4> 
+    
+    <!-- lista-productos -->
+    
+    <div class="lista-productos"> 
+      
+      <!-- producto 1 -->
+      <div class="producto">
+         <img
+        src="img/corazon-normal.png"
+        class="corazon-favorito"
+        data-estado-favorito="false">
+
+      <img src="img/lapiz-cejas.jpg"
+       data-hover="img/lapiz-cejas-hover.jpg"
+       alt="Lápiz Cejas"
+        onclick="verProducto( 
+        'img/lapiz-cejas.jpg', 
+        'FLORTTE lápiz líquido para cejas', 
+        'definidor de línea de cabello para cejas teñido durante todo el día para potenciadores de cejas suaves y completos.', 
+        40000 
+        )">
+         
+        <h3 onclick="verProducto( 
+        'img/lapiz-cejas.jpg', 
+        'FLORTTE lápiz líquido para cejas', 
+        'definidor de línea de cabello para cejas teñido durante todo el día para potenciadores de cejas suaves y completos.', 
+        40000 
+        )">
+        FLORTTE-lápiz líquido para cejas
+      </h3>
+
+        <p>resistente al agua</p>
+        <p class="precio">$40.000</p>
+
+        <div class="colores">
+        <span style="background-color:#8b4513;"></span>
+        </div> 
+        <button class="btn-carrito"
+          onclick="agregaralcarrito(
+                'FLORTTE líquido para cejas',
+                40000 
+                  )">
+              Agregar al carrito
+            </button>
+          
+      </div>
+    </div>
+
+  </section>
+
+  <section id="gelCejas" class="productos">
+    <p class="volver" onclick="mostrar('cejas')">← Volver</p>
+    <h4>Gel de Cejas</h4> 
+
+    <!-- lista-productos -->
+    
+  <div class="lista-productos"> 
+    
+    <!-- producto 1 -->
+
+    <div class="producto">
+       <img
+        src="img/corazon-normal.png"
+        class="corazon-favorito"
+        data-estado-favorito="false">
+
+    <img src="img/gel-cejas.jpg"
+    data-hover="img/gel-cejas-hover.jpg"
+     alt="Gel Cejas"
+    onclick="verProducto( 
+    'img/gel-cejas.jpg', 
+    'FLORTTE tinte para cejas naturales', 
+    'aspecto salvaje Gel para cejas teñido durante todo el día para potenciadores de cejas suaves y completos.',
+    48000
+     )">
+       
+      <h3 onclick="verProducto( 
+    'img/gel-cejas.jpg', 
+    'FLORTTE tinte para cejas naturales', 
+    'aspecto salvaje Gel para cejas teñido durante todo el día para potenciadores de cejas suaves y completos.',
+    48000 
+      )">
+     Gel Cejas
+    </h3>
+      <p>cejas teñido durante todo el día</p>
+      <p class="precio">$48.000</p>
+
+      <div class="colores">
+      <span style="background-color:#4b3621;"></span>
+      </div> 
+      <button class="btn-carrito"
+       onclick="agregaralcarrito(
+                'FLORTTE Gel Cejas',
+                48000 
+                  )">
+              Agregar al carrito
+            </button>
+    </div> 
+    <!-- producto 2 -->
+
+    <div class="producto">
+       <img
+        src="img/corazon-normal.png"
+        class="corazon-favorito"
+        data-estado-favorito="false">
+
+    <img src="img/doble-cejas.jpg"
+    data-hover="img/doble-cejas-hover.jpg"
+    alt="Gel Cejas"
+      onclick="verProducto( 
+      'img/doble-cejas.jpg', 
+      'FLORTTE Kit de lápiz para sellos de cejas', 
+      'delineador de cejas resistente al agua y de larga duración, productos cosméticos.', 
+      45000 
+      )">
+        
+      <h3 onclick="verProducto( 
+      'img/doble-cejas.jpg', 
+      'FLORTTE Kit de lápiz para sellos de cejas', 
+      'delineador de cejas resistente al agua y de larga duración, productos cosméticos.', 
+      45000 
+      )">
+      FLORTTE Kit de lápiz para sellos de cejas
+    </h3>
+      
+      <p>crema para teñir cejas</p>
+      <p class="precio">$45.000</p>
+      
+      <div class="colores">
+      <span style="background-color:#4b3621;"></span>
+      </div> 
+      <button class="btn-carrito"
+      onclick="agregaralcarrito(
+                'FLORTTE Kit de lápiz para sellos de cejas',
+                45000 
+                  )">
+              Agregar al carrito
+            </button>
+    </div>
+
+  </div>
+  </section> 
+  
+      <!-- Ojos -->
+  
+  <section id="ojos" class="productos">
+    <p class="volver" onclick="mostrar('maquillaje')">← Volver</p>
+    <h3>🖊️ Ojos</h3>
+
+    <div class="sub-subcategorias"> 
+      <button onclick="mostrar('sombrasOjos')">Sombras</button> 
+      <button onclick="mostrar('mascaraOjos')">Mascara de pestañas</button> 
+      <button onclick="mostrar('pestanaspostizasOjos')">Pestañas postizas</button> 
+      <button onclick="mostrar('delineadoresOjos')">Delineadores</button>
+    </div>
+  </section>
+
+  <section id="sombrasOjos" class="productos">
+    <p class="volver" onclick="mostrar('ojos')">← Volver</p>
+    <h4>Sombras</h4> 
+
+    <!-- lista-productos -->
+    <div class="lista-productos"> 
+      
+      <!-- producto 1 -->
+      <div class="producto">
+         <img
+        src="img/corazon-normal.png"
+        class="corazon-favorito"
+        data-estado-favorito="false">
+
+
+      <img src="img/sombras-ojos.jpg"
+      data-hover="img/sombras-ojos-hover.jpg"
+      alt="Sombras Ojos"
+      onclick="verProducto( 
+        'img/sombras-ojos.jpg', 
+        'Sombras de ojos Tingphe', 
+        'Tono natural y brillantes.', 
+        16000 
+        )">
+        
+       <h3 onclick="verProducto( 
+        'img/sombras-ojos.jpg', 
+        'Sombras de ojos Tingphe', 
+        'Tono natural y brillantes.', 
+        16000
+        )">
+        Sombras de ojos Tingphe
+       </h3>
+
+        <p>Tono natural y brillantes</p>
+        <p class="precio">$16.000</p>
+        
+        <div class="colores"><span style="background-color:#8b4513;"></span>
+        </div> 
+        <button class="btn-carrito"
+        onclick="agregaralcarrito(
+                'Sombras de ojos Tingphe',
+                16000
+                  )">
+              Agregar al carrito
+            </button>
+      </div> 
+      
+      <!-- producto 2 -->
+      <div class="producto">
+         <img
+        src="img/corazon-normal.png"
+        class="corazon-favorito"
+        data-estado-favorito="false">
+
+      <img src="img/sombrasususky-ojos.jpg"
+       data-hover="img/sombrasususky-ojos-hover.jpg"
+       alt="Sombras Ojos"
+        onclick="verProducto( 
+        'img/sombrasususky-ojos.jpg', 
+        'SUSU SKY Lady Rabbit', 
+        'acabado mate, mejora del tono de la piel, mezcla natural, versátil para todos los días.', 
+        35000 
+        )">
+        
+         <h3 onclick="verProducto( 
+        'img/sombrasususky-ojos.jpg', 
+        'SUSU SKY Lady Rabbit', 
+        'acabado mate, mejora del tono de la piel, mezcla natural, versátil para todos los días.', 
+        35000 
+        )">
+        SUSU SKY Lady Rabbit Paleta de sombras de ojos de 4 colores
+        </h3>
+        
+        <p>Tono mate y brillantes</p>
+        <p class="precio">$35.000</p>
+       
+        <div class="colores"><span style="background-color:#dd61b833;"></span>
+        </div> 
+        <button class="btn-carrito"
+        onclick="agregaralcarrito(
+                'SUSU SKY Lady Rabbit Paleta de sombras de ojos de 4 colores',
+                35000 
+                  )">
+              Agregar al carrito
+            </button>
+      </div>
+   
+   <!-- producto 3 -->
+      <div class="producto">
+         <img
+        src="img/corazon-normal.png"
+        class="corazon-favorito"
+        data-estado-favorito="false">
+
+      <img src="img/sombras2.jpg"
+       data-hover="img/sombras2-hover.jpg"
+       alt="Sombras Ojos"
+        onclick="verProducto( 
+        'img/sombras2.jpg', 
+        'JILL LEEN sombra de ojos ', 
+        'Acabado terciopelo mate con efecto perlado.', 
+        55000 
+        )">
+        
+         <h3 onclick="verProducto( 
+        'img/sombras2.jpg', 
+        'JILL LEEN ', 
+        ' terciopelo mate perla.', 
+        55000 
+        )">
+        JILL LEEN 
+        </h3>
+        
+        <p>Tono mate y brillantes</p>
+        <p class="precio">$55.000</p>
+       
+        <div class="colores"><span style="background-color:#dd61b833;"></span>
+        </div> 
+        <button class="btn-carrito"
+        onclick="agregaralcarrito(
+                'JILLLEEN sombra de ojos',
+                55000
+                  )">
+              Agregar al carrito
+            </button>
+      </div>
+
+       <!-- producto 4 -->
+      <div class="producto">
+         <img
+        src="img/corazon-normal.png"
+        class="corazon-favorito"
+        data-estado-favorito="false">
+
+      <img src="img/sombras3.jpg"
+       data-hover="img/sombras3-hover.jpg"
+       alt="Sombras Ojos"
+        onclick="verProducto( 
+        'img/sombras3.jpg', 
+        'Paleta de sombra de ojos rosa con corazón de amor', 
+        ' comprehensiveb disco terciopelo mate perla.', 
+        50000
+        )">
+        
+         <h3 onclick="verProducto( 
+        'img/sombras3.jpg', 
+        'Paleta de sombra de ojos rosa con corazón de amor', 
+        ' comprehensiveb disco terciopelo mate perla.', 
+        50000 
+        )">
+       Paleta de sombra de ojos rosa con corazón de amor
+        </h3>
+        
+        <p>Tono mate y brillantes</p>
+        <p class="precio">$50.000</p>
+       
+        <div class="colores"><span style="background-color:#dd61b833;"></span>
+        </div> 
+        <button class="btn-carrito"
+        onclick="agregaralcarrito(
+                'Paleta de sombra de ojos rosa con corazón de amor',
+                50000 
+                  )">
+              Agregar al carrito
+            </button>
+      </div>
+       
+    </div>
+  </section>
+  
+  <section id="mascaraOjos" class="productos">
+  <p class="volver" onclick="mostrar('ojos')">← Volver</p>
+  <h4>Máscara para pestañas</h4>
+
+  <!-- lista-productos -->
+  <div class="lista-productos">
+
+    <!-- producto 1 -->
+    <div class="producto">
+       <img
+        src="img/corazon-normal.png"
+        class="corazon-favorito"
+        data-estado-favorito="false">
+
+    <img src="img/pestanina.jpg"
+     data-hover="img/pestanina-hover.jpg"
+     alt="Máscara de pestañas Ojos"
+
+     onclick="verProducto(
+        'img/pestanina.jpg',
+        'Máscara para alargar pestañas',
+        'Resistente al agua y de larga duración',
+        37000
+      )">
+
+      <h3 onclick="verProducto(
+        'img/pestanina.jpg',
+        'Máscara para alargar pestañas',
+        'Resistente al agua y de larga duración',
+        37000
+      )">
+      Máscara para alargar pestañas
+      </h3>
+      <p>Waterproof</p>
+      <p class="precio">$37.000</p>
+
+      <div class="colores">
+        <span style="background-color:#0c0b0b;"></span>
+      </div>
+
+      <button class="btn-carrito"
+        onclick="agregaralcarrito(
+          'Máscara para alargar pestañas',
+          37000
+        )">
+        Agregar al carrito
+      </button>
+
+    </div>
+  </div>
+</section>
+
+  <section id="pestanaspostizasOjos" class="productos">
+    <p class="volver" onclick="mostrar('ojos')">← Volver</p>
+    <h4>Pestañas postizas</h4>
+     
+    <!-- lista-productos -->
+  <div class="lista-productos">
+
+    <!-- producto 1 -->
+    <div class="producto">
+       <img
+        src="img/corazon-normal.png"
+        class="corazon-favorito"
+        data-estado-favorito="false">
+
+      <img src="img/pestanaspostizas.jpg" 
+      data-hover="img/pestanaspostizas-hover.jpg"
+      alt="Pestañas postizas Ojos"
+      
+      onclick="verProducto(
+        'img/pestanaspostizas.jpg',
+        'Pestañas postizas',
+        'cappuvini',
+        20000
+      )">
+      <h3 onclick="verProducto(
+        'img/pestanaspostizas.jpg',
+        'Pestañas postizas',
+        'cappuvini',
+        20000
+        )">
+        Pestañas postizas
+      </h3>
+
+      <p>cappuvini</p>
+      <p class="precio">$20.000</p>
+
+      <div class="colores"><span style="background-color:#4b3621;"></span>
+      </div> 
+      <button class="btn-carrito"
+       onclick="agregaralcarrito(
+          'Pestañas postizas',
+          20000
+        )">
+        Agregar al carrito
+      </button>
+    </div>
+  </div>
+</section>
+
+  <section id="delineadoresOjos" class="productos">
+    <p class="volver" onclick="mostrar('ojos')">← Volver</p>
+    <h4>Delineadores</h4>
+
+    <!-- lista-productos -->
+
+  <div class="lista-productos"> 
+      <!-- producto 1 -->
+
+    <div class="producto"> 
+      <img
+      src="img/corazon-normal.png"
+      class="corazon-favorito"
+      data-estado-favorito="false">
+      
+      <img src="img/delineadores-Ojos.jpg" data-hover="img/delineadores-Ojos-hover.jpg"
+        alt="Delineadores Ojos">
+      <h3>Delineadores</h3>
+      <p>cappuvini</p>
+      <p class="precio">$18.000</p>
+
+      <div class="colores">
+        <span style="background-color:#4b3621;"></span>
+      </div>
+       <button class="btn-carrito"
+        onclick="agregaralcarrito(
+          'Delineadores',
+          18000
+        )">
+        Agregar al carrito
+      </button>
+    </div>
+
+   </div>
+
+  </section> 
+
+  <!-- Rostro -->
+  <section id="rostro" class="productos">
+  <p class="volver" onclick="mostrar('maquillaje')">← Volver</p>
+
+  <div class="sub-subcategorias"> 
+    <button onclick="mostrar('blushesencremayenpolvoRostro')">Blushes</button> 
+    <button onclick="mostrar('polvossueltosRostro')">Polvos</button> 
+    <button onclick="mostrar('correctoresRostro')">Correctores</button> 
+    <button onclick="mostrar('brochasyesponjasRostro')">Brochas</button> 
+  </div>
+</section>
+
+ <section id="blushesencremayenpolvoRostro" class="productos">
+  <p class="volver" onclick="mostrar('rostro')">← Volver</p>
+  <h4>Blushes</h4> 
+
+  <!-- lista-productos -->
+<div class="lista-productos"> 
+
+  <!-- Producto 1 -->
+
+   <div class="producto"> 
+    <img
+      src="img/corazon-normal.png"
+      class="corazon-favorito"
+      data-estado-favorito="false">
+
+  
+      <img src="img/blushesencremayenpolvo-Rostro.jpg">
+      <h3>Blush</h3>
+      <p class="precio">$25.000</p>
+
+      <button class="btn-carrito"
+        onclick="agregaralcarrito(
+          'blush',
+          25000
+        )">
+        Agregar al carrito
+      </button>
+    </div>
+  </div>
+</section>
+
+ <section id="polvossueltosRostro" class="productos">
+    <p class="volver" onclick="mostrar('rostro')">← Volver</p>
+
+    <h4>Polvos sueltos</h4>
+
+      <!-- lista-productos -->
+    <div class="lista-productos"> 
+
+       <!-- Producto 1 -->
+        <div class="producto"> 
+    <img
+      src="img/corazon-normal.png"
+      class="corazon-favorito"
+      data-estado-favorito="false">
+
+      <img src="img/polvossueltos-Rostro.jpg" 
+      data-hover="img/polvossueltos-Rostro-hover.jpg"
+        alt="Polvos sueltos Rostro">
+      
+      
+      <h3>Polvos sueltos Rostro</h3>
+     <p class="precio">$25.000</p>
+
+      <button class="btn-carrito"
+        onclick="agregaralcarrito(
+          'Polvos sueltos Rostro',
+          25000
+        )">
+        Agregar al carrito
+      </button>
+    </div>
+</div>
+  </section>
+
+  <section 
+  id="correctoresRostro" class="productos">
+    <p class="volver" 
+    onclick="mostrar('rostro')">← Volver</p>
+
+    <h4>Correctores</h4>
+
+     <!-- lista-productos -->
+    <div class="lista-productos"> 
+
+       <!-- Producto 1 -->
+
+    <div class="producto"> 
+      <img src="img/correctores-Rostro.jpg" 
+      data-hover="img/correctores-Rostro-hover.jpg"
+        alt="Correctores-Rostro">
+      <h3>Correctores</h3>
+
+      <p>cappuvini</p>
+
+      <p class="precio">$25.000</p>
+
+      <div class="colores">
+        <span style="background-color:#4b3621;"></span>
+      </div> 
+      <button class="btn-carrito"
+        onclick="agregaralcarrito(
+          'Correctores',
+         25000
+        )">
+        Agregar al carrito
+      </button>
+    </div>
+  </div>
+
+  </section>
+
+ <section id="brochasyesponjasRostro"
+  class="productos">
+  <p class="volver" onclick="mostrar('rostro')">← Volver</p>
+  
+  <h4>Brochas y esponjas</h4>
+  
+   <!-- lista-productos -->
+    <div class="lista-productos"> 
+
+       <!-- Producto 1 -->
+
+    <div class="producto"> 
+      <img
+      src="img/corazon-normal.png"
+      class="corazon-favorito"
+      data-estado-favorito="false">
+
+    <img src="img/brochasyesponjas-Rostro.jpg">
+    <h3>Kit de brochas</h3>
+    <p class="precio">$32.000</p>
+     <button class="btn-carrito"
+        onclick="agregaralcarrito(
+          'Polvos sueltos Rostro',
+         32000
+        )">
+        Agregar al carrito
+      </button>
+      </div>
+      </div>
+</section>
+
+ <div class ="mariposa">🦋</div>
+
+ 
+<script src="script.js"></script>
+  
+  <section id="detalle-producto" class="productos" style="display:none;">
+    <p class="volver" onclick="volver()">← Volver</p>
+    <div class="detalle-contenido"> <img id="detalle-img" src="">
+      <div class="detalle-info">
+        <h3 id="detalle-titulo"></h3>
+        <p id="detalle-descripcion"></p>
+        <p class="precio" id="detalle-precio"></p> 
+  
+      </div>
+    </div>
+  </section>
+<div id="mensaje-favorito">
+💗 Añadido a Favoritos
+</div>
+
+</div>
+</body>
+
+</html>
